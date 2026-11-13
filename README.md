@@ -1,3 +1,7 @@
+> **AdzanMi** — fork dari [AdzanPlus](https://github.com/Adrian463588/AdzanPlus) karya adrian463588 (MIT).
+> Perubahan: nama & paket `com.satriaweb.adzanmi`, perbaikan keamanan (lihat [AUDIT-KEAMANAN.md](AUDIT-KEAMANAN.md)),
+> build APK via GitHub Actions. Unduh: https://satri.duckdns.org/unduh/AdzanMi.apk
+
 # 🕌 AdzanPlus — Modern, Offline-First Islamic Prayer Times & Astronomy Suite
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0+-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org/)

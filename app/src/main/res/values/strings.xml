@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Adzan Notif</string>
+    <string name="app_name">AdzanMi</string>
     <string name="widget_name">Jadwal Sholat &amp; Countdown</string>
     <string name="widget_description">Widget jadwal sholat dan hitung mundur waktu sholat berikutnya secara realtime</string>
     <string name="moon_widget_description">Widget fase bulan dan hitung mundur moonrise</string>
@@ -175,7 +175,7 @@
     <string name="settings_install_prayer_widget">Pasang widget jadwal sholat</string>
     <string name="settings_install_moon_widget">Widget bulan</string>
     <string name="settings_install_sun_widget">Widget matahari</string>
-    <string name="settings_widget_hint">Anda juga dapat menekan lama layar utama, lalu pilih Widget dan Adzan Notif.</string>
+    <string name="settings_widget_hint">Anda juga dapat menekan lama layar utama, lalu pilih Widget dan AdzanMi.</string>
     <string name="settings_location_picker_title">Pilih lokasi perhitungan</string>
     <string name="settings_location_picker_description">Pilih kota dari direktori offline, gunakan GPS, atau masukkan koordinat manual.</string>
     <string name="settings_location_name_required">Nama lokasi wajib diisi.</string>
@@ -290,7 +290,7 @@
     <string name="astro_widget_card_desc">Pasang widget astronomi lengkap yang menampilkan fase bulan, iluminasi, posisi matahari, serta Golden &amp; Blue Hour langsung ke Home Screen.</string>
     <string name="astro_btn_astronomy_widget">🌌 Pasang Widget Astronomi</string>
     <string name="settings_install_astronomy_widget">Widget Astronomi (Matahari &amp; Bulan)</string>
-    <string name="astronomy_widget_name">Astronomi AdzanPlus</string>
+    <string name="astronomy_widget_name">Astronomi AdzanMi</string>
     <string name="astronomy_widget_description">Posisi matahari, fase &amp; iluminasi bulan, serta Golden &amp; Blue Hour.</string>
     <string name="astronomy_widget_content_description">Widget astronomi: Matahari %1$s, Bulan %2$s (%3$s), %4$s</string>
     <string name="astronomy_widget_data_unavailable">Data astronomi belum tersedia</string>

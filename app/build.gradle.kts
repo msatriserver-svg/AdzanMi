@@ -12,11 +12,11 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.adzannotif"
+        applicationId = "com.satriaweb.adzanmi"
         minSdk = 24
         targetSdk = 35
         versionCode = 5
-        versionName = "2.2.1"
+        versionName = "2.2.1-mi1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -27,7 +27,8 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            // Tidak lagi ditandatangani dengan kunci debug publik. Build menghasilkan
+            // APK unsigned; tanda tangan dilakukan di server dengan kunci AdzanMi.
         }
         debug {
             isMinifyEnabled = false
