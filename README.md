@@ -1,8 +1,30 @@
-> **AdzanMi** — fork dari [AdzanPlus](https://github.com/Adrian463588/AdzanPlus) karya adrian463588 (MIT).
-> Perubahan: nama & paket `com.satriaweb.adzanmi`, perbaikan keamanan (lihat [AUDIT-KEAMANAN.md](AUDIT-KEAMANAN.md)),
-> build APK via GitHub Actions. Unduh: https://satri.duckdns.org/unduh/AdzanMi.apk
+# 🕌 AdzanMi — Jadwal Sholat & Adzan, 100% Offline
 
-# 🕌 AdzanPlus — Modern, Offline-First Islamic Prayer Times & Astronomy Suite
+Fork dari [AdzanPlus](https://github.com/Adrian463588/AdzanPlus) karya adrian463588 (lisensi MIT), paket `com.satriaweb.adzanmi`.
+
+**Unduh APK:** https://satri.duckdns.org/unduh/AdzanMi.apk
+
+## Fitur utama
+
+- 🛡️ **Privasi penuh: tanpa izin internet.** Aplikasi tidak bisa mengirim data apa pun keluar. Lokasi hanya dipakai di HP untuk menghitung jadwal dan kiblat, tidak ikut cadangan cloud, dan tidak ada iklan atau pelacak.
+- 🕋 **Jadwal sholat akurat tanpa internet.** Standar **Kemenag RI** (plus MWL, Umm Al-Qura, Mesir, Karachi, ISNA, MUIS), lengkap Imsak, Subuh, Terbit, **Dhuha**, Dzuhur, Ashar, Maghrib, Isya, dan sepertiga malam terakhir. Bisa dikoreksi per menit menyesuaikan masjid setempat.
+- ⏰ **Pengingat adzan tepat waktu.** Tetap berbunyi walau HP sedang hemat daya, notifikasi 5–30 menit sebelum adzan, pilihan suara adzan (Makkah, Madinah, Al-Aqsa, Mesir, Subuh) atau file sendiri, bip saja, atau hanya getar, dan layar adzan muncul walau HP terkunci.
+- 🧭 **Kompas kiblat** dengan getar saat tepat menghadap Ka'bah, plus jarak ke Ka'bah.
+- 📱 **Widget layar utama**: hitung mundur sholat berikutnya + jadwal hari ini, dan widget matahari/bulan.
+- 🌙 **Kalender Hijriah & astronomi**: fase bulan, golden hour, peta bintang, kalender Hijriah–Masehi.
+
+## Yang berbeda dari AdzanPlus
+
+- APK ditandatangani dengan kunci sendiri (AdzanPlus memakai kunci *debug* publik, sehingga siapa pun bisa membuat "update" palsu).
+- Cadangan cloud / transfer data dimatikan; repositori `jitpack.io` yang tidak terpakai dibuang; widget tidak bisa dipicu aplikasi lain.
+- Bisa dipasang berdampingan dengan AdzanPlus.
+- Detail audit: [AUDIT-KEAMANAN.md](AUDIT-KEAMANAN.md).
+
+---
+
+*Di bawah ini README asli AdzanPlus.*
+
+## 🕌 AdzanPlus (asli) — Modern, Offline-First Islamic Prayer Times & Astronomy Suite
 
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0+-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
 [![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Material%203-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white)](https://developer.android.com/jetpack/compose)
