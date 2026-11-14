@@ -8,7 +8,7 @@ Fork dari [AdzanPlus](https://github.com/Adrian463588/AdzanPlus) karya adrian463
 
 - 🛡️ **Privasi penuh: tanpa izin internet.** Aplikasi tidak bisa mengirim data apa pun keluar. Lokasi hanya dipakai di HP untuk menghitung jadwal dan kiblat, tidak ikut cadangan cloud, dan tidak ada iklan atau pelacak.
 - 🕋 **Jadwal sholat akurat tanpa internet.** Standar **Kemenag RI** (plus MWL, Umm Al-Qura, Mesir, Karachi, ISNA, MUIS), lengkap Imsak, Subuh, Terbit, **Dhuha**, Dzuhur, Ashar, Maghrib, Isya, dan sepertiga malam terakhir. Bisa dikoreksi per menit menyesuaikan masjid setempat.
-- ⏰ **Pengingat adzan tepat waktu.** Tetap berbunyi walau HP sedang hemat daya, notifikasi 5–30 menit sebelum adzan, pilihan suara adzan (Makkah, Madinah, Al-Aqsa, Mesir, Subuh) atau file sendiri, bip saja, atau hanya getar, dan layar adzan muncul walau HP terkunci.
+- ⏰ **Pengingat adzan tepat waktu.** Tetap berbunyi walau HP sedang hemat daya, notifikasi 5–30 menit sebelum adzan, pilihan suara adzan (Makkah, Madinah, Al-Aqsa, Mesir, Subuh) atau file sendiri, bip saja, atau hanya getar, dan layar adzan muncul walau HP terkunci. Adzan bisa dihentikan cepat dengan **menekan tombol power 2x**.
 - 🧭 **Kompas kiblat** dengan getar saat tepat menghadap Ka'bah, plus jarak ke Ka'bah.
 - 📱 **Widget layar utama**: hitung mundur sholat berikutnya + jadwal hari ini, dan widget matahari/bulan.
 - 🌙 **Kalender Hijriah & astronomi**: fase bulan, golden hour, peta bintang, kalender Hijriah–Masehi.

@@ -1,13 +1,19 @@
 package com.adzannotif.platform.audio
 
 import android.app.Notification
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.IBinder
+import android.os.SystemClock
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import com.adzannotif.R
 import com.adzannotif.core.prayer.Prayer
 import com.adzannotif.domain.model.AdhanVoice
@@ -28,6 +34,11 @@ class AdhanPlaybackService : Service() {
     @Inject
     lateinit var audioGateway: AudioGateway
 
+    private var powerButtonReceiver: BroadcastReceiver? = null
+    private var playbackStartedAt = 0L
+    private var lastScreenToggleAt = 0L
+    private var currentPrayer: Prayer? = null
+
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         val voice = intent?.getStringExtra(EXTRA_VOICE)
             ?.let { name -> runCatching { AdhanVoice.valueOf(name) }.getOrNull() }
@@ -46,6 +57,10 @@ class AdhanPlaybackService : Service() {
             SERVICE_NOTIFICATION_ID,
             buildPlaybackNotification(prayer, prayerTitle, locationName),
         )
+        currentPrayer = prayer
+        playbackStartedAt = SystemClock.elapsedRealtime()
+        lastScreenToggleAt = 0L
+        registerPowerButtonReceiver()
         audioGateway.playAdhan(
             voice = voice,
             customUriString = customUriString,
@@ -55,6 +70,56 @@ class AdhanPlaybackService : Service() {
             },
         )
         return START_REDELIVER_INTENT
+    }
+
+    /**
+     * Pressing the power button toggles the screen (SCREEN_ON / SCREEN_OFF). Two
+     * toggles within [DOUBLE_PRESS_WINDOW_MS] are treated as a double press and stop
+     * the adhan. Toggles right after playback starts are ignored, because the
+     * full-screen alarm itself turns the screen on.
+     */
+    private fun registerPowerButtonReceiver() {
+        if (powerButtonReceiver != null) return
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                val now = SystemClock.elapsedRealtime()
+                if (now - playbackStartedAt < IGNORE_AFTER_START_MS) {
+                    lastScreenToggleAt = 0L
+                    return
+                }
+                if (lastScreenToggleAt != 0L && now - lastScreenToggleAt <= DOUBLE_PRESS_WINDOW_MS) {
+                    lastScreenToggleAt = 0L
+                    stopByPowerButton()
+                } else {
+                    lastScreenToggleAt = now
+                }
+            }
+        }
+        val filter = IntentFilter().apply {
+            addAction(Intent.ACTION_SCREEN_ON)
+            addAction(Intent.ACTION_SCREEN_OFF)
+        }
+        runCatching {
+            ContextCompat.registerReceiver(this, receiver, filter, ContextCompat.RECEIVER_NOT_EXPORTED)
+            powerButtonReceiver = receiver
+        }.onFailure { Log.w(TAG, "Could not listen for power button presses", it) }
+    }
+
+    private fun unregisterPowerButtonReceiver() {
+        powerButtonReceiver?.let { runCatching { unregisterReceiver(it) } }
+        powerButtonReceiver = null
+    }
+
+    private fun stopByPowerButton() {
+        Log.d(TAG, "Power button pressed twice; stopping adhan")
+        audioGateway.stop()
+        currentPrayer?.let {
+            getSystemService(NotificationManager::class.java)
+                ?.cancel(NotificationHelper.NOTIFICATION_ID_ADHAN + it.ordinal)
+        }
+        sendBroadcast(Intent(ACTION_ADHAN_STOPPED).setPackage(packageName))
+        stopForeground(STOP_FOREGROUND_REMOVE)
+        stopSelf()
     }
 
     private fun stopForInvalidRequest(startId: Int): Int {
@@ -103,6 +168,7 @@ class AdhanPlaybackService : Service() {
     }
 
     override fun onDestroy() {
+        unregisterPowerButtonReceiver()
         audioGateway.stop()
         super.onDestroy()
     }
@@ -118,6 +184,12 @@ class AdhanPlaybackService : Service() {
         private const val EXTRA_LOCATION_NAME = "extra_location_name"
         private const val SERVICE_NOTIFICATION_ID = 9001
         private const val STOP_REQUEST_CODE = 9002
+        private const val TAG = "AdhanPlaybackService"
+        private const val DOUBLE_PRESS_WINDOW_MS = 2_000L
+        private const val IGNORE_AFTER_START_MS = 1_500L
+
+        /** Sent (package-local) when playback is stopped by the power button. */
+        const val ACTION_ADHAN_STOPPED = "com.satriaweb.adzanmi.action.ADHAN_STOPPED"
 
         fun start(
             context: Context,

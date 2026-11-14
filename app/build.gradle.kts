@@ -15,8 +15,8 @@ android {
         applicationId = "com.satriaweb.adzanmi"
         minSdk = 24
         targetSdk = 35
-        versionCode = 5
-        versionName = "2.2.1-mi1"
+        versionCode = 6
+        versionName = "2.2.1-mi2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

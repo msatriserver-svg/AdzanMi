@@ -1,12 +1,16 @@
 package com.adzannotif.presentation.alarm
 
 import android.app.KeyguardManager
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.content.ContextCompat
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
@@ -80,9 +84,23 @@ class AlarmFullscreenActivity : ComponentActivity() {
         const val EXTRA_LOCATION_NAME = "extra_location_name"
     }
 
+    private val adhanStoppedReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            finish()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         turnScreenOnAndShowOnLockScreen()
+        runCatching {
+            ContextCompat.registerReceiver(
+                this,
+                adhanStoppedReceiver,
+                IntentFilter(AdhanPlaybackService.ACTION_ADHAN_STOPPED),
+                ContextCompat.RECEIVER_NOT_EXPORTED,
+            )
+        }
 
         val prayer = intent.getStringExtra(EXTRA_PRAYER_NAME)
             ?.let { name -> runCatching { Prayer.valueOf(name) }.getOrNull() }
@@ -122,6 +140,11 @@ class AlarmFullscreenActivity : ComponentActivity() {
                 )
             }
         }
+    }
+
+    override fun onDestroy() {
+        runCatching { unregisterReceiver(adhanStoppedReceiver) }
+        super.onDestroy()
     }
 
     @Suppress("DEPRECATION")
